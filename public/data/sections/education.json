@@ -69,6 +69,78 @@
                             "tags": null
                         }
                     }
+                },
+                {
+                    "icon": {
+                        "img": null,
+                        "fa": "fa-solid fa-school",
+                        "faColors": {"bg": null, "fill": null}
+                    },
+                    "dates": {
+                        "start": "2016"
+                    },
+                    "locales": {
+                        "en": {
+                            "title": "Computer Security",
+                            "info": "Universidad Autonoma de Occidente",
+                            "text": "Earned degree in Computer Security, focusing on cybersecurity, cryptography, and network security",
+                            "tags": []
+                        },
+                        "es": {
+                            "title": "**Licenciatura** en Ciencias de la Computación",
+                            "info": "MIT",
+                            "text": "Obtuve una licenciatura en Ciencias de la Computación, con un enfoque en algoritmos, estructuras de datos, ingeniería de software y desarrollo web. Adquirí experiencia práctica a través de varios proyectos de programación y campamentos de entrenamiento.",
+                            "tags": null
+                        },
+                        "fr": {
+                            "title": "**Licence** en Informatique",
+                            "info": "MIT",
+                            "text": "Obtenu une licence en Informatique, avec un accent sur les algorithmes, les structures de données, l'ingénierie logicielle et le développement web. Acquis une expérience pratique à travers divers projets de programmation et camps de formation.",
+                            "tags": null
+                        },
+                        "ko": {
+                            "title": "**학사** 컴퓨터 과학",
+                            "info": "MIT",
+                            "text": "알고리즘, 데이터 구조, 소프트웨어 공학 및 웹 개발에 중점을 둔 컴퓨터 과학 학사 학위를 취득했습니다. 다양한 프로그래밍 프로젝트와 부트캠프를 통해 실무 경험을 쌓았습니다.",
+                            "tags": null
+                        }
+                    }
+                },
+                {
+                    "icon": {
+                        "img": null,
+                        "fa": "fa-solid fa-school",
+                        "faColors": {"bg": null, "fill": null}
+                    },
+                    "dates": {
+                        "start": "2025"
+                    },
+                    "locales": {
+                        "en": {
+                            "title": "Data Analysis",
+                            "info": "Unicuces",
+                            "text": "Earned degree in Data Analysis, focusing in data visualization",
+                            "tags": []
+                        },
+                        "es": {
+                            "title": "**Licenciatura** en Ciencias de la Computación",
+                            "info": "MIT",
+                            "text": "Obtuve una licenciatura en Ciencias de la Computación, con un enfoque en algoritmos, estructuras de datos, ingeniería de software y desarrollo web. Adquirí experiencia práctica a través de varios proyectos de programación y campamentos de entrenamiento.",
+                            "tags": null
+                        },
+                        "fr": {
+                            "title": "**Licence** en Informatique",
+                            "info": "MIT",
+                            "text": "Obtenu une licence en Informatique, avec un accent sur les algorithmes, les structures de données, l'ingénierie logicielle et le développement web. Acquis une expérience pratique à travers divers projets de programmation et camps de formation.",
+                            "tags": null
+                        },
+                        "ko": {
+                            "title": "**학사** 컴퓨터 과학",
+                            "info": "MIT",
+                            "text": "알고리즘, 데이터 구조, 소프트웨어 공학 및 웹 개발에 중점을 둔 컴퓨터 과학 학사 학위를 취득했습니다. 다양한 프로그래밍 프로젝트와 부트캠프를 통해 실무 경험을 쌓았습니다.",
+                            "tags": null
+                        }
+                    }
                 }                
             ]
         }

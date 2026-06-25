@@ -53,7 +53,65 @@
                 }                
             ],
 
-            "items": [               
+            "items": [       
+                {
+                    "categoryId": "websites",
+                    "icon": {
+                        "img": null,
+                        "fa": "fa-brands fa-chrome",
+                        "faColors": {"bg": null, "fill": null}
+                    },
+
+                    "links": [
+                        {"faIcon": "fa-solid fa-link", "href": "https://ai-atlas-front-prod.integ.ro/"}
+                    ],
+
+                    "media": {
+                        "youtubeVideo": null,
+                        "screenshots": {
+                            "aspectRatio": null,
+                            "images": []
+                        }
+                    },
+
+                    "locales": {
+                        "en": {
+                            "title": "AI Atlas",
+                            "text": "Application that allows the students to interact with with a AI Tutor to learn lessons",
+                            "tags": ["Node JS", "MongoDB", "React JS"]
+                        }                        
+                    }
+                },
+
+                {
+                    "categoryId": "websites",
+                    "icon": {
+                        "img": null,
+                        "fa": "fa-brands fa-chrome",
+                        "faColors": {"bg": null, "fill": null}
+                    },
+
+                    "links": [
+                        {"faIcon": "fa-solid fa-link", "href": "https://btb-ai-frontend.integ.ro/"}
+                    ],
+
+                    "media": {
+                        "youtubeVideo": null,
+                        "screenshots": {
+                            "aspectRatio": null,
+                            "images": []
+                        }
+                    },
+
+                    "locales": {
+                        "en": {
+                            "title": "AI Widgets",
+                            "text": "Application that allows the students to interact with with a AI widgets that allows to practice the language topics",
+                            "tags": ["Node JS", "PostgreSQL", "React JS"]
+                        }                        
+                    }
+                },
+
                 {
                     "categoryId": "websites",
                     "icon": {

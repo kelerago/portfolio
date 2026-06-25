@@ -107,7 +107,6 @@
                         }
                     }
                 },
-
                 {
                     "icon": {
                         "img": "images/pictures/place-7.png",
@@ -145,7 +144,6 @@
                         }
                     }
                 },
-
                 {
                     "icon": {
                         "img": "images/pictures/place-7.png",
@@ -154,7 +152,7 @@
                     },
                     "dates": {
                         "start": "07/21/2021",
-                        "end": "11/20/2024"
+                        "end": "Now"
                     },
                     "locales": {
                         "en": {
