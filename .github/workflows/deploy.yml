@@ -1,0 +1,72 @@
+name: Deploy to GCP VM
+run-name: Deploy ${{ github.ref_name }}
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  deploy:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Copy build to VM
+        run: |
+          cd dist && tar czf ../dist.tar.gz . && cd ..
+          gcloud compute scp \
+            --zone "${{ secrets.GCP_VM_ZONE }}" \
+            --project "${{ secrets.GCP_PROJECT_ID }}" \
+            --compress dist.tar.gz \
+            "${{ secrets.GCP_VM_INSTANCE }}:~/"
+
+      - name: Extract and apply on VM
+        run: |
+          gcloud compute ssh "${{ secrets.GCP_VM_INSTANCE }}" \
+            --zone "${{ secrets.GCP_VM_ZONE }}" \
+            --project "${{ secrets.GCP_PROJECT_ID }}" \
+            --command="
+              sudo mkdir -p ${{ vars.WEB_ROOT }} &&
+              sudo tar xzf ~/dist.tar.gz -C ${{ vars.WEB_ROOT }} &&
+              sudo chown -R www-data:www-data ${{ vars.WEB_ROOT }} &&
+              rm ~/dist.tar.gz
+            "
+
+      - name: Reload nginx
+        run: |
+          gcloud compute ssh "${{ secrets.GCP_VM_INSTANCE }}" \
+            --zone "${{ secrets.GCP_VM_ZONE }}" \
+            --project "${{ secrets.GCP_PROJECT_ID }}" \
+            --command="sudo systemctl reload nginx || true"
