@@ -6,7 +6,7 @@
     "preloader": {
         "enabled": true,
         "title": "Kevin <b>Ramirez</b>",
-        "subtitle": "Web Developer"
+        "subtitle": "Full Stack Developer"
     },
 
     "profile": {
@@ -16,8 +16,8 @@
         "profilePictureUrl": "images/pictures/profile.jpeg",
 
         "locales": {
-            "en": {"role": "Web Developer"},
-            "es": {"role": "Desarrollador Web"},
+            "en": {"role": "Full Stack Developer"},
+            "es": {"role": "Desarrollador Full Stack"},
             "fr": {"role": "Développeur Web"},
             "ko": {"role": "웹 개발자"}
         }
