@@ -2,9 +2,9 @@ name: Deploy to GCP VM
 run-name: Deploy ${{ github.ref_name }}
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
@@ -27,46 +27,37 @@ jobs:
     needs: build
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
 
-      - uses: google-github-actions/auth@v2
+      - uses: webfactory/ssh-agent@v0.9.1
         with:
-          workload_identity_provider: ${{ secrets.GCP_WIF_PROVIDER }}
-          service_account: ${{ secrets.GCP_SA_EMAIL }}
+          ssh-private-key: ${{ secrets.GCP_SSH_KEY }}
 
-      - uses: google-github-actions/setup-gcloud@v2
+      - name: Add VM to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.GCP_VM_HOST }} >> ~/.ssh/known_hosts
 
       - name: Copy build to VM
         run: |
           cd dist && tar czf ../dist.tar.gz . && cd ..
-          gcloud compute scp \
-            --zone "${{ secrets.GCP_VM_ZONE }}" \
-            --project "${{ secrets.GCP_PROJECT_ID }}" \
-            --compress dist.tar.gz \
-            "${{ secrets.GCP_VM_INSTANCE }}:~/"
+          scp -o StrictHostKeyChecking=accept-new dist.tar.gz \
+            ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }}:~/
 
       - name: Extract and apply on VM
         run: |
-          gcloud compute ssh "${{ secrets.GCP_VM_INSTANCE }}" \
-            --zone "${{ secrets.GCP_VM_ZONE }}" \
-            --project "${{ secrets.GCP_PROJECT_ID }}" \
-            --command="
-              sudo mkdir -p ${{ vars.WEB_ROOT }} &&
-              sudo tar xzf ~/dist.tar.gz -C ${{ vars.WEB_ROOT }} &&
-              sudo chown -R www-data:www-data ${{ vars.WEB_ROOT }} &&
-              rm ~/dist.tar.gz
-            "
+          ssh ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }} "
+            sudo mkdir -p ${{ vars.WEB_ROOT }} &&
+            sudo tar xzf ~/dist.tar.gz -C ${{ vars.WEB_ROOT }} &&
+            sudo chown -R www-data:www-data ${{ vars.WEB_ROOT }} &&
+            rm ~/dist.tar.gz
+          "
 
       - name: Reload nginx
         run: |
-          gcloud compute ssh "${{ secrets.GCP_VM_INSTANCE }}" \
-            --zone "${{ secrets.GCP_VM_ZONE }}" \
-            --project "${{ secrets.GCP_PROJECT_ID }}" \
-            --command="sudo systemctl reload nginx || true"
+          ssh ${{ secrets.GCP_VM_USER }}@${{ secrets.GCP_VM_HOST }} \
+            "sudo systemctl reload nginx || true"
